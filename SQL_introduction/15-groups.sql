@@ -4,7 +4,8 @@
 -- Records should be listed descending score
 -- db name will be passed as arg to mysql cmd
 -- Not allowed to use JOIN or UNION
-SELECT score, name
+SELECT score;
+COUNT(*) as number
 FROM second_table
-HAVING name IS NOT NULL
-ORDER BY score DESC;
+GROUP BY score
+ORDER BY number DESC;
