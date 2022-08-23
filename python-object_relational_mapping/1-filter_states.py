@@ -1,20 +1,20 @@
 #!/usr/bin/python3
+""" module list states
+from database"""
 
-
-import MySQLdb
-from sys import argv
-
-'''
-lists all states with starting name with N
-from the database hbtn_0e_0_usa
-'''
 if __name__ == "__main__":
-    con = MySQLdb.connect(
-        host="localhost", port=3306, user=argv[1],
-        password=argv[2], database=argv[3])
-    cursor = con.cursor()
-    cursor.execute(
-            "SELECT * FROM states WHERE name LIKE BINARY 'N%'ORDER BY id ASC")
-    db = cursor.fetchall()
-    for i in db:
-        print(i)
+    import MySQLdb
+    from sys import argv
+    # port and host are default local and 3306
+    db = MySQLdb.connect(user=argv[1], passwd=argv[2], db=argv[3])
+    cur = db.cursor()
+    cur.execute("""SELECT * FROM states ORDER BY states.id ASC""")
+    result = cur.fetchall()
+    # display elements with N
+    # only by taking comparing their first letter in tuple
+    for i in result:
+        if i[1][0] == 'N':
+            print(i)
+    # close cursor and db
+    cur.close()
+    db.close()
